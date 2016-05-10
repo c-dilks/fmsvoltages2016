@@ -1,0 +1,13 @@
+#!/bin/bash
+
+destination=~/research/run16/fms_map/current_iteration/
+
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 [iteration dir]"
+  echo "copies iteration files to fms_map/current_iteration"
+  echo "for the GUI_MAP.C program to read"
+  exit
+fi
+dir=$1
+
+cp -v $dir/* $destination

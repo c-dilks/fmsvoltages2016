@@ -1,0 +1,78 @@
+RUNNING THOMAS'S CODE
+---------------------
+notation: `$n` = new iteration number
+          `$y` = new iteration number + year (e.g. `i3_2016`)
+
+1. download Steve's corrections and rename it to `FmsCorr.heppel.txt_i$n`
+2. `mkdir $y`
+3. `cd ../scripts`
+4. convert corrections file: 
+   `./toRowColumn.py ../iterations/FmsCorr.heppel.txt_i$n \
+    ../iterations/FmsCorr.txt_i$n`
+   - this will create a file in iterations subdir called `FmsCorr.txt_i$n`,
+     which is heppel's file reformatted to be compatible with Thomas's code
+5. `cd ..`
+
+
+6. launch Thomas's program with `./App.py`
+7. choose the previous iteration's directory, e.g., `iterations/i[$n-1]_2016`
+   when it asks you to choose a directory
+   - n.b. use view menu items to see current settings
+8. click `edit->modify gains` and choose `iterations/FmsCorr.txt_i$n`
+   - n.b. use view menu items to see new settings
+9. click `file->save` and choose the new directory, `iterations/$y`
+   - important: don't overwrite the old files!
+10. click `file->quit` to exit Thomas's program
+10.5. (DEPRECATED STEP, but listed here for documentation:
+       execute `qt_mask $y` on the new iteration dir; this
+       will implement hard ADC offsets on certain pesky channels
+
+
+11. `cd iterations`
+12. edit the `README.md` file for the new iteration
+   - add a new section for the new iteration; read through it and make
+     the necessary changes; for updating the average voltage changes,
+     see the next step
+13. draw some plots using `root draw_plots.C'("$y")`
+   - the average voltage changes are printed out to stdout and can be
+     then copied and pasted into the iterations/README.md file
+
+
+14. execute `copy_to_fms_map_dir $y` to copy new files to 
+    `GUI_MAP` program
+    - (modify the script for your system's directory map!)
+15. produce iteration tarball: `tar czvf $y{.tar.gz,}
+16. `cd ..` 
+    `git add -A`
+    `git commit -m "ITERATION $n DAY [day applied]"`
+    `git push`
+17. `pushd /path/to/fms_map_directory/`; 
+    `git add -A`
+    `git commit -m "ITERATION $n DAY [day applied]"`
+    `git push`
+    `popd`
+    `cd iterations`
+
+
+UPLOADING NEW ITERATIONS
+------------------------
+1. upload new tarball to rcas, ssh to rcas, upload tarball to 
+   daqman:~/fmshv/iterations
+2. ssh to daqman:~/fmshv/iterations, untar the tarball; chmod 
+   the four sh scripts to u+x
+(3. in the four console windows, cd to the new iteration directory 
+    and run each sh script)
+4. upload tarball to fmsled and ssh to fmsled
+5. untar the tarball and copy [iterationdir]/setVoltages.txt to 
+   hv/setVoltages.[iteration].txt
+(6. on ~/hv/console.exe (via cygwin!), run @setVoltages.[iteration].txt 
+    and then @lock.txt)
+7. go back to rcas ssh
+8. upload new tarball to staruser@startrg.bnl.gov, then ssh to it
+9. on startrg, cd to /home/startrg/trg/cal/qt/2015, and move the 
+   tarball you just uploaded to here
+10. untar the tarball in the 2015/ directory; cd ..
+11. remove our qt*_tac.dat symlinks (USE rm -i SO YOU DON'T SCREW IT UP)
+12. create new symlinks with `ln -s 2015/[iteration]/*.dat ./`; 
+    check with `ls -l | grep '\->'`
+

@@ -1,0 +1,49 @@
+gain equation
+=============
+Gain = normalisation * ADC * 2^bitshift
+1. compute normalisation = currentGain / ADC(currentVoltage)
+2. for list of possible bit shifts, compute
+   newADC = newGain/normalisation * 1/2^(newShift-currentShift)
+3. for this computed ADC, determine newVoltage(newADC)
+3. for list of valid newVoltage computations, choose the one
+   with the lowest |bitshift|
+   - if you don't want any bitshifts, "short circuit" the bit
+     shifting computation by simply setting the voltage to
+     - max setting if bitshift > 0
+     - min setting if bitshift < 0
+     - see the boolean BITSHIFT_SHORT_CIRCUIT
+
+
+things which are tuned
+======================
+voltage limits:
+ - set limit of large fermi cells to 1600
+ - set limit of large resistive bases to 1800
+ - set limit of large psu cells to 1700 (1600 if bitshift>1)
+ - lecroy voltage limiter set to 1800
+
+supress dead cells by setting voltage to 0
+ - 3 unstacked large cells
+ - 7 small cells with broken PMTs
+
+if the voltage was set to 0 in a previous iteration, we
+get a divide by zero exception, since normalisation is set to
+currentgain / ADC(crrentVoltage)
+ - fix this by setting ADC(currentVoltage to an arbitrarily low value
+   (currently set to 5; see the variable adc_low_val)
+
+do not bitshit fermi cells
+all other cells limited to -3<=bitshift<=+3
+
+demand cells which had empty bases before 2/18 access be at 1400 V by
+setting gain corrs to unity for cells we put in that access
+
+
+==============================================
+
+later (for mapping scripts):
+change large_edge to large_fermi and add the other large_fermi cells
+change large_regular to large_psu
+don't worry about resistive bases for now... maybe put it in the map
+alpha distributions for large_psu(+resistive), large_fermi, small_russian,
+small_yale

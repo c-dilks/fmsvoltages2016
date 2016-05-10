@@ -1,0 +1,18 @@
+#!/bin/bash
+# modifies qt*_tac.dat files for masking out certain channels;
+# takes single argument as iteration directory
+
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 [iteration directory]"
+  exit
+fi
+
+pushd $1 > /dev/null
+
+#cat qt3_tac.dat | sed 's/^1 29 -1/1 29 4095/g;s/^1 30 -1/1 30 4095/g' > qt3_tac.dat.tmp
+#mv -v qt3_tac.dat{.tmp,}
+
+cat qt4_tac.dat | sed 's/^3 24 -1/3 24 4095/g' > qt4_tac.dat.tmp
+mv -v qt4_tac.dat{.tmp,}
+
+popd > /dev/null
