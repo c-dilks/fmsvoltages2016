@@ -46,7 +46,7 @@ notation: `$n` = new iteration number
     `git add -A`
     `git commit -m "ITERATION $n DAY [day applied]"`
     `git push`
-17. `pushd /path/to/fms_map_directory/`; 
+17. `pushd /path/to/fms_map_directory/..`; 
     `git add -A`
     `git commit -m "ITERATION $n DAY [day applied]"`
     `git push`

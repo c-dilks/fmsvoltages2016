@@ -46,10 +46,11 @@ iterations
     - `0 2 2 FC 00` (3,177)
     - `1 0 3 F6 D0` (4,219)
     - `1 0 3 FA B0` (4,208)
+    - `1 2 1 E4 C0` (4,258)
 
 
 - `i2_2016` = `i1_2016` + `FmsCorr.txt_i2`
-  - applied day (NOT YET APPLIED)
+  - applied day 133
   - carl's gain goals from run15 implemented
   - all fermi bases limited to -1600V
   - all large "resistive" bases limited to -1800V
@@ -65,7 +66,7 @@ iterations
     - `crt4 slot10 chan10`
   - average voltage changes (`(V_new - V_old)/V_new`)
     - cuts: `oldBitshift==newBitshift && abs(newVoltage-oldVoltage)>0.01`
-      - `nstb1: -0.003562V (rms=0.028894)`
-      - `nstb2: -0.001363V (rms=0.030197)`
-      - `nstb3: -0.076866V (rms=0.246197)`
-      - `nstb4: -0.063057V (rms=0.187607)`
+      - `nstb1: +0.002745V (rms=0.019815)`
+      - `nstb2: +0.004919V (rms=0.022434)`
+      - `nstb3: -0.010511V (rms=0.176191)`
+      - `nstb4: -0.003064V (rms=0.158744)`
