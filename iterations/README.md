@@ -70,3 +70,22 @@ iterations
       - `nstb2: +0.004919V (rms=0.022434)`
       - `nstb3: -0.010511V (rms=0.176191)`
       - `nstb4: -0.003064V (rms=0.158744)`
+  - hot tower suppressions
+    - voltage reductions
+      - n1 ch132 -- 1600 to 1350
+      - n2 ch114 -- 1680 to 1500
+      - n2 ch143 -- 1587 to 1125
+      - n2 ch430 -- 1527 to 1375
+      - n3 ch265 -- F9 to B0
+      - n4 ch206 -- DC to A0
+      - n4 ch219 -- D9 to A0
+    - bitshift reductions
+      - n2 ch143 -- +4 to +2
+      - n2 ch430 -- +3 to +2
+      - n4 ch258 -- +5 to +3
+      - n4 ch219 -- +5 to +4
+      - n4 ch245 -- +5 to +3
+      - n1 ch117 --  0 to -1
+      - n3 ch128 -- +5 to +4
+      - n3 ch277 -- +2 to +1
+
