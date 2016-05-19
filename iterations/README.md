@@ -79,6 +79,7 @@ iterations
       - n3 ch265 -- F9 to B0
       - n4 ch206 -- DC to A0
       - n4 ch219 -- D9 to A0
+      - n4 ch205 -- FF to C0 (btwn 17140023 and 024) -- 19 May 2016
     - bitshift reductions
       - n2 ch143 -- +4 to +2
       - n2 ch430 -- +3 to +2
